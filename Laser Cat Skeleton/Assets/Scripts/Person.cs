@@ -18,7 +18,7 @@ public class Person : MonoBehaviour {
 
 		if (Input.GetKeyUp (KeyCode.Space))
 		{	
-			Instantiate(sphere);
+			Instantiate(sphere, transform.position, Quaternion.identity);
 		}
 	}
 }

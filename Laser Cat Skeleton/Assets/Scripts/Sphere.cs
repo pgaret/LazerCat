@@ -11,7 +11,7 @@ public class Sphere : MonoBehaviour {
 	{
 		GameObject player = GameObject.FindGameObjectWithTag ("Player");
 		direction = player.GetComponent<Person> ().lookingAt;		
-		direction = new Vector3 (direction.x * speed, direction.y * speed, direction.z * speed);
+//		direction = new Vector3 (direction.x * speed, direction.y * speed, direction.z * speed);
 	}
 	
 	// Update is called once per frame
