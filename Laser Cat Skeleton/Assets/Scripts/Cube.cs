@@ -33,7 +33,5 @@ public class Cube : MonoBehaviour {
 				Destroy (spheres[i].gameObject);
 			}
 		}
-
-		Debug.Log (rotateSpeed);
 	}
 }
