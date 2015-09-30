@@ -4,9 +4,9 @@ using System.Collections;
 public class Cube : MonoBehaviour {
 
 	public float setrotateSpeed;
-	float rotateSpeed;
+	float rotateSpeed = 0;
 
-	Vector3 axisofRotation;
+	Vector3 axisofRotation = new Vector3(0, 0, 0);
 
 	// Use this for initialization
 	void Start ()

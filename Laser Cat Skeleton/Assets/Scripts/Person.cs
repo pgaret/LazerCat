@@ -33,14 +33,15 @@ public class Person : MonoBehaviour {
 			Instantiate(sphere, transform.position, Quaternion.identity);
 		}
 
-		if (onCube == true && Input.GetKeyDown(KeyCode.Return))
+		if (onCube == false) GetComponent<SphereCollider>().radius = .1f;
+
+		if (onCube == true && Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			attainedDirection = true;
 			transform.parent = null;
 			onCube = false;
-			direction = Camera.main.transform.forward;
+			direction = GetComponent<Camera>().transform.forward;
 		}
-		Debug.Log (onCube);
 		if (attainedDirection == true && onCube == false) transform.position += direction * GetComponent<PlayerMovement>().playerSpeed * Time.deltaTime;
 	}
 }

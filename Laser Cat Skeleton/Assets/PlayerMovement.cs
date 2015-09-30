@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if (Input.GetKey(KeyCode.W))
 		{
-			transform.position += Camera.main.transform.forward * playerSpeed * Time.deltaTime;
+			transform.position += GetComponent<Camera>().transform.forward * playerSpeed * Time.deltaTime;
 		}
 	}
 }

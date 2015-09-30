@@ -18,13 +18,10 @@ public class OnContact : MonoBehaviour {
 	{
 		if (GetComponent<BoxCollider>().bounds.Intersects(player.GetComponent<SphereCollider>().bounds) && player.GetComponent<Person>().cube != transform)
 		{
-			if (player.GetComponent<Person>().onDeath == false & attachedPlayer == true) player.GetComponent<Person>().onDeath = true;
-			else 
-			{
-				player.GetComponent<Person>().onCube = true;
-				player.GetComponent<Person>().cube = transform;
-				player.transform.parent = transform;
-			}
+			player.GetComponent<Person>().onCube = true;
+			player.GetComponent<Person>().cube = transform;
+			player.transform.parent = transform;
+			player.GetComponent<SphereCollider>().radius = .1f;
 		}
 	}
 }
