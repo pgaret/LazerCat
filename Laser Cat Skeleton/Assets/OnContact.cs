@@ -16,12 +16,12 @@ public class OnContact : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (GetComponent<BoxCollider>().bounds.Intersects(player.GetComponent<SphereCollider>().bounds) && player.GetComponent<Person>().cube != transform)
+		if (GetComponent<BoxCollider>().bounds.Intersects(player.GetComponent<SphereCollider>().bounds) && player.GetComponent<Person>().cube != transform && player.GetComponent<Person>().onCube == false)
 		{
 			player.GetComponent<Person>().onCube = true;
 			player.GetComponent<Person>().cube = transform;
-			player.transform.parent = transform;
-			player.GetComponent<SphereCollider>().radius = .1f;
+			player.transform.parent = transform.GetChild(3);
+			player.GetComponent<SphereCollider>().radius = .05f;
 		}
 	}
 }
