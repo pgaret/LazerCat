@@ -75,4 +75,20 @@ public class MouseLook : MonoBehaviour {
 			angle -= 360F;
 		return Mathf.Clamp (angle, min, max);
 	}
+    public void OnContact(Transform cube)
+    {
+        if (cube.GetComponent<Cube>().rotateSpeed > 0)
+        {
+            minimumX = 0F;
+            maximumX = 180F;
+        }
+
+        else if (cube.GetComponent<Cube>().rotateSpeed < 0)
+        {
+            minimumX = -180F;
+            maximumX = 0F;
+        }
+
+        transform.localRotation = new Quaternion(Quaternion.identity.x, Quaternion.identity.y, 0, Quaternion.identity.w);
+    }
 }

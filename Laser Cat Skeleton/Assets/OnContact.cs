@@ -22,6 +22,9 @@ public class OnContact : MonoBehaviour {
 			player.GetComponent<Person>().cube = transform;
 			player.transform.parent = transform.GetChild(3);
 			player.GetComponent<SphereCollider>().radius = .05f;
-		}
-	}
+            player.transform.rotation = new Quaternion(0, 270, 0, 0);
+            player.GetComponent<MouseLook>().OnContact(transform);
+
+        }
+    }
 }

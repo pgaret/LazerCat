@@ -4,7 +4,7 @@ using System.Collections;
 public class Cube : MonoBehaviour {
 
 	public float setrotateSpeed;
-	float rotateSpeed = 0;
+	public float rotateSpeed = 0;
 
 	Vector3 axisofRotation = new Vector3(0, 0, 0);
 

@@ -41,7 +41,7 @@ public class Person : MonoBehaviour {
 			transform.parent = null;
 			onCube = false;
 			direction = GetComponent<Camera>().transform.forward;
-		}
+        }
 		if (attainedDirection == true && onCube == false) transform.position += direction * GetComponent<PlayerMovement>().playerSpeed * Time.deltaTime;
 	}
 }
