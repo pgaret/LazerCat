@@ -7,10 +7,12 @@ public class OnContact : MonoBehaviour {
 
 	bool attachedPlayer = false;
 
+    public float sphereScaler;
+
 	// Use this for initialization
 	void Start ()
 	{
-	
+//        player.transform.localScale = new Vector3(sphereScaler, sphereScaler, sphereScaler);
 	}
 	
 	// Update is called once per frame
@@ -20,10 +22,10 @@ public class OnContact : MonoBehaviour {
 		{
 			player.GetComponent<Person>().onCube = true;
 			player.GetComponent<Person>().cube = transform;
-			player.transform.parent = transform.GetChild(3);
-			player.GetComponent<SphereCollider>().radius = .05f;
+            player.transform.parent = transform;
             player.transform.rotation = new Quaternion(0, 270, 0, 0);
             player.GetComponent<MouseLook>().OnContact(transform);
+            player.localScale = new Vector3(sphereScaler / transform.localScale.x, sphereScaler / transform.localScale.y, sphereScaler / transform.localScale.z);
 
         }
     }

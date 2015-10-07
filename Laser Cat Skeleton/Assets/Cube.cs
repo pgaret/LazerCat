@@ -5,6 +5,7 @@ public class Cube : MonoBehaviour {
 
 	public float setrotateSpeed;
 	public float rotateSpeed = 0;
+    public Transform toFollow;
 
 	Vector3 axisofRotation = new Vector3(0, 0, 0);
 
@@ -18,6 +19,7 @@ public class Cube : MonoBehaviour {
 	void Update ()
 	{
 		transform.RotateAround(axisofRotation, Vector3.up, rotateSpeed);
+        if (toFollow != null) transform.position = toFollow.position;
 
 		GameObject[] spheres = GameObject.FindGameObjectsWithTag ("Sphere");
 		for (int i = 0; i < spheres.Length; i++)

@@ -9,7 +9,7 @@ public class Sphere : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		direction = GameObject.FindGameObjectWithTag ("Player").GetComponent<Camera> ().transform.forward;
+		direction = GameObject.FindGameObjectWithTag ("Player").transform.GetChild(0).GetComponent<Camera> ().transform.forward;
 //		direction = new Vector3 (direction.x * speed, direction.y * speed, direction.z * speed);
 	}
 	

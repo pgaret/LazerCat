@@ -19,28 +19,44 @@ public class Person : MonoBehaviour {
 	//Current cube (if any)
 	public Transform cube;
 
-	// Use this for initialization
-	void Start ()
+    //Variables for launch camera movement
+    public float distanceConst;
+    bool haveMoved = true;
+
+    // Use this for initialization
+    void Start ()
 	{
-	
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+        Debug.Log(transform.lossyScale + "     " + transform.localScale);
+
 		if (Input.GetKeyUp (KeyCode.Space))
 		{	
 			Instantiate(sphere, transform.position, Quaternion.identity);
 		}
 
-		if (onCube == false) GetComponent<SphereCollider>().radius = .1f;
+        if (onCube == false)
+        {
+
+            if (haveMoved == false)
+            {
+                transform.GetChild(0).GetComponent<Camera>().transform.position = transform.position - transform.GetChild(0).GetComponent<Camera>().transform.forward * distanceConst;
+                haveMoved = true;
+            }
+
+        }
 
 		if (onCube == true && Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			attainedDirection = true;
 			transform.parent = null;
 			onCube = false;
-			direction = GetComponent<Camera>().transform.forward;
+			direction = transform.GetChild(0).GetComponent<Camera>().transform.forward;
+            haveMoved = false;
         }
 		if (attainedDirection == true && onCube == false) transform.position += direction * GetComponent<PlayerMovement>().playerSpeed * Time.deltaTime;
 	}

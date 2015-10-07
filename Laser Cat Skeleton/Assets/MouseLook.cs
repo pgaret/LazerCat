@@ -89,6 +89,7 @@ public class MouseLook : MonoBehaviour {
             maximumX = 0F;
         }
 
-        transform.localRotation = new Quaternion(Quaternion.identity.x, Quaternion.identity.y, 0, Quaternion.identity.w);
+//        transform.localRotation = new Quaternion(Quaternion.identity.x, Quaternion.identity.y, 0, Quaternion.identity.w);
+
     }
 }
