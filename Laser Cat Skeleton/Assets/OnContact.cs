@@ -9,24 +9,18 @@ public class OnContact : MonoBehaviour {
 
     public float sphereScaler;
 
-	// Use this for initialization
-	void Start ()
-	{
-//        player.transform.localScale = new Vector3(sphereScaler, sphereScaler, sphereScaler);
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-		if (GetComponent<BoxCollider>().bounds.Intersects(player.GetComponent<SphereCollider>().bounds) && player.GetComponent<Person>().cube != transform && player.GetComponent<Person>().onCube == false)
-		{
-			player.GetComponent<Person>().onCube = true;
-			player.GetComponent<Person>().cube = transform;
-            player.transform.parent = transform;
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.name == "Player" && player.GetComponent<Person>().onCube == false)
+        {
+            Debug.Log("Colliding");
+            player.GetComponent<Person>().onCube = true;
+            player.GetComponent<Person>().cube = transform;
             player.transform.rotation = new Quaternion(0, 270, 0, 0);
             player.GetComponent<MouseLook>().OnContact(transform);
-            player.localScale = new Vector3(sphereScaler / transform.localScale.x, sphereScaler / transform.localScale.y, sphereScaler / transform.localScale.z);
-
+            Destroy(player.GetComponent<Rigidbody>());
+            Destroy(GetComponent<Rigidbody>());
+            Debug.Log(GetComponent<BoxCollider>().bounds + "       " + player.GetComponent<SphereCollider>().bounds);
         }
     }
 }

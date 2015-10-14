@@ -19,6 +19,7 @@ public class Cube : MonoBehaviour {
 	void Update ()
 	{
 		transform.RotateAround(axisofRotation, Vector3.up, rotateSpeed);
+//        if (rotateSpeed != 0) Debug.Log(transform.position.x.ToString("F4") + "  " + transform.position.y.ToString("F4") + "   " +  transform.position.z.ToString("F4"));
         if (toFollow != null) transform.position = toFollow.position;
 
 		GameObject[] spheres = GameObject.FindGameObjectsWithTag ("Sphere");

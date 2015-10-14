@@ -23,6 +23,9 @@ public class Person : MonoBehaviour {
     public float distanceConst;
     bool haveMoved = true;
 
+    //Variables for shitty testing
+    float previousIncrease;
+
     // Use this for initialization
     void Start ()
 	{
@@ -32,7 +35,6 @@ public class Person : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-        Debug.Log(transform.lossyScale + "     " + transform.localScale);
 
 		if (Input.GetKeyUp (KeyCode.Space))
 		{	
@@ -46,6 +48,7 @@ public class Person : MonoBehaviour {
             {
                 transform.GetChild(0).GetComponent<Camera>().transform.position = transform.position - transform.GetChild(0).GetComponent<Camera>().transform.forward * distanceConst;
                 haveMoved = true;
+                Debug.Log("We're scooting backwards");
             }
 
         }
