@@ -7,20 +7,28 @@ public class OnContact : MonoBehaviour {
 
 	bool attachedPlayer = false;
 
-    public float sphereScaler;
+    void Update()
+    {
+ //       Debug.Log(Vector3.Distance(transform.GetChild(0).transform.position, transform.position) + "   " + Vector3.Distance(transform.GetChild(1).transform.position, transform.position));
+    }
 
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.name == "Player" && player.GetComponent<Person>().onCube == false)
         {
-            Debug.Log("Colliding");
+            Debug.Log(Vector3.Distance(transform.GetChild(0).transform.position, player.position) + "  " + Vector3.Distance(transform.GetChild(1).transform.position, player.position));
+            if (Vector3.Distance(transform.GetChild(0).transform.position, player.position) > Vector3.Distance(transform.GetChild(1).transform.position, player.position))
+            {
+                player.GetComponent<Person>().cubeFace = 0;
+            }
+            else player.GetComponent<Person>().cubeFace = 1;
             player.GetComponent<Person>().onCube = true;
             player.GetComponent<Person>().cube = transform;
-            player.transform.rotation = new Quaternion(0, 270, 0, 0);
-            player.GetComponent<MouseLook>().OnContact(transform);
+            player.transform.localEulerAngles = transform.localEulerAngles;
+            player.transform.GetChild(0).position = player.transform.localPosition;
             Destroy(player.GetComponent<Rigidbody>());
             Destroy(GetComponent<Rigidbody>());
-            Debug.Log(GetComponent<BoxCollider>().bounds + "       " + player.GetComponent<SphereCollider>().bounds);
+
         }
     }
 }

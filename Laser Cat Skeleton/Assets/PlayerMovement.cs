@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		else if (Input.GetKey(KeyCode.W))
 		{
-            Debug.Log("We're moving forwards");
+ //           Debug.Log("We're moving forwards");
 			transform.position += transform.GetChild(0).GetComponent<Camera>().transform.forward * playerSpeed * Time.deltaTime;
 		}
        

@@ -34,29 +34,34 @@ public class MouseLook : MonoBehaviour {
 	Quaternion originalRotation;
 	void Update ()
 	{
+        if (GetComponent<Person>().onCube == true)
+        {
+            OnContact(GetComponent<Person>().cube);
+        }
+
 		if (axes == RotationAxes.MouseXAndY)
 		{
 			// Read the mouse input axis
 			rotationX += Input.GetAxis("Mouse X") * sensitivityX;
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-			rotationX = ClampAngle (rotationX, minimumX, maximumX);
-			rotationY = ClampAngle (rotationY, minimumY, maximumY);
-			Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.up);
+			rotationX = Mathf.Clamp(rotationX, minimumX, maximumX);
+            rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+            Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.up);
 			Quaternion yQuaternion = Quaternion.AngleAxis (rotationY, -Vector3.right);
 			transform.localRotation = originalRotation * xQuaternion * yQuaternion;
 		}
 		else if (axes == RotationAxes.MouseX)
 		{
 			rotationX += Input.GetAxis("Mouse X") * sensitivityX;
-			rotationX = ClampAngle (rotationX, minimumX, maximumX);
+			rotationX = Mathf.Clamp(rotationX, minimumX, maximumX);
 			Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.up);
 			transform.localRotation = originalRotation * xQuaternion;
 		}
 		else
 		{
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-			rotationY = ClampAngle (rotationY, minimumY, maximumY);
-			Quaternion yQuaternion = Quaternion.AngleAxis (-rotationY, Vector3.right);
+			rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
+            Quaternion yQuaternion = Quaternion.AngleAxis (-rotationY, Vector3.right);
 			transform.localRotation = originalRotation * yQuaternion;
 		}
 	}
@@ -67,29 +72,19 @@ public class MouseLook : MonoBehaviour {
 			GetComponent<Rigidbody>().freezeRotation = true;
 		originalRotation = transform.localRotation;
 	}
-	public static float ClampAngle (float angle, float min, float max)
-	{
-		if (angle <= -360F)
-			angle += 360F;
-		if (angle >= 360F)
-			angle -= 360F;
-		return Mathf.Clamp (angle, min, max);
-	}
+
     public void OnContact(Transform cube)
     {
-        if (cube.GetComponent<Cube>().rotateSpeed > 0)
+        if (GetComponent<Person>().cubeFace == 1)
         {
-            minimumX = 0F;
-            maximumX = 180F;
+            minimumX = cube.localEulerAngles.y;
+            maximumX = cube.localEulerAngles.y + 180F;
         }
 
-        else if (cube.GetComponent<Cube>().rotateSpeed < 0)
+        else if (GetComponent<Person>().cubeFace == 0)
         {
-            minimumX = -180F;
-            maximumX = 0F;
+            minimumX = cube.localEulerAngles.y + -180F;
+            maximumX = cube.localEulerAngles.y;
         }
-
-//        transform.localRotation = new Quaternion(Quaternion.identity.x, Quaternion.identity.y, 0, Quaternion.identity.w);
-
     }
 }

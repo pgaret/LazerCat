@@ -18,6 +18,7 @@ public class Person : MonoBehaviour {
 
 	//Current cube (if any)
 	public Transform cube;
+    public int cubeFace = -1;
 
     //Variables for launch camera movement
     public float distanceConst;
@@ -35,6 +36,8 @@ public class Person : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+//        Transform curCube = GameObject.FindGameObjectWithTag("Cube").transform;
+//        Debug.Log(Vector3.Distance(curCube.GetChild(0).position, transform.position) + "      " + Vector3.Distance(curCube.GetChild(1).position, transform.position));
 
 		if (Input.GetKeyUp (KeyCode.Space))
 		{	
@@ -51,6 +54,18 @@ public class Person : MonoBehaviour {
                 Debug.Log("We're scooting backwards");
             }
 
+        }
+        if (onCube == true)
+        {
+            if (GetComponent<Person>().cubeFace == 0)
+            {
+                transform.rotation = Quaternion.Euler(cube.rotation.x, cube.rotation.y + 90, cube.rotation.z);
+            }
+
+            else if (GetComponent<Person>().cubeFace == 1)
+            {
+                transform.rotation = Quaternion.Euler(cube.rotation.x, cube.rotation.y - 90, cube.rotation.z);
+            }
         }
 
 		if (onCube == true && Input.GetKeyDown(KeyCode.LeftShift))
