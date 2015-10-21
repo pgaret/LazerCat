@@ -18,7 +18,9 @@ public class PlayerMovement : MonoBehaviour {
 	{
         if (GetComponent<Person>().onCube == true)
         {
- //           Debug.Log("We're rotating");
+            //           Debug.Log("We're rotating");
+            //           Debug.Log(Vector3.Distance(GetComponent<Person>().cube.GetChild(2).transform.position, transform.position));
+//            Debug.Log(GetComponent<Person>().cube.GetChild(2).localPosition);
             transform.RotateAround(GetComponent<Person>().cube.GetChild(2).transform.position, Vector3.up, GetComponent<Person>().cube.GetComponent<Cube>().rotateSpeed);
             desiredPosition = (transform.position - GetComponent<Person>().cube.GetChild(2).transform.position).normalized * orbitRadius + GetComponent<Person>().cube.GetChild(2).transform.position;
             transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * playerSpeed);
@@ -32,4 +34,10 @@ public class PlayerMovement : MonoBehaviour {
 		}
        
 	}
+
+    void FixedUpdate()
+    {
+
+
+    }
 }

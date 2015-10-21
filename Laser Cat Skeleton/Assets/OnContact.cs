@@ -16,18 +16,20 @@ public class OnContact : MonoBehaviour {
     {
         if (col.gameObject.name == "Player" && player.GetComponent<Person>().onCube == false)
         {
-            Debug.Log(Vector3.Distance(transform.GetChild(0).transform.position, player.position) + "  " + Vector3.Distance(transform.GetChild(1).transform.position, player.position));
+//            Debug.Log(Vector3.Distance(transform.GetChild(0).transform.position, player.position) + "  " + Vector3.Distance(transform.GetChild(1).transform.position, player.position));
             if (Vector3.Distance(transform.GetChild(0).transform.position, player.position) > Vector3.Distance(transform.GetChild(1).transform.position, player.position))
             {
                 player.GetComponent<Person>().cubeFace = 0;
             }
             else player.GetComponent<Person>().cubeFace = 1;
-            player.GetComponent<Person>().onCube = true;
             player.GetComponent<Person>().cube = transform;
+   //         player.GetComponent<PlayerMovement>().orbitRadius = Vector3.Distance(transform.position, player.position);
+            Debug.Log(Vector3.Distance(transform.position, player.position));
             player.transform.localEulerAngles = transform.localEulerAngles;
             player.transform.GetChild(0).position = player.transform.localPosition;
             Destroy(player.GetComponent<Rigidbody>());
             Destroy(GetComponent<Rigidbody>());
+            player.GetComponent<Person>().onCube = true;
 
         }
     }

@@ -36,15 +36,33 @@ public class MouseLook : MonoBehaviour {
 	{
         if (GetComponent<Person>().onCube == true)
         {
-            OnContact(GetComponent<Person>().cube);
-        }
+            Transform cube = GetComponent<Person>().cube;
+            if (GetComponent<Person>().cubeFace == 1)
+            {
+                minimumX = cube.localEulerAngles.y%360;
+                maximumX = (cube.localEulerAngles.y + 180F) % 360;
+                if (maximumX < minimumX)
+                {
+                    maximumX += 360;
+                }
+                Debug.Log(minimumX + "   " + maximumX);
+            }
 
-		if (axes == RotationAxes.MouseXAndY)
+            else if (GetComponent<Person>().cubeFace == 0)
+            {
+                minimumX = cube.localEulerAngles.y + -180F;
+                maximumX = cube.localEulerAngles.y;
+            }
+            Debug.Log(rotationX + "   " + rotationY);
+            rotationX = Clamp();
+        }
+        
+        if (axes == RotationAxes.MouseXAndY)
 		{
 			// Read the mouse input axis
 			rotationX += Input.GetAxis("Mouse X") * sensitivityX;
 			rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
-			rotationX = Mathf.Clamp(rotationX, minimumX, maximumX);
+            rotationX = Mathf.Clamp(rotationX, minimumX, maximumX);
             rotationY = Mathf.Clamp(rotationY, minimumY, maximumY);
             Quaternion xQuaternion = Quaternion.AngleAxis (rotationX, Vector3.up);
 			Quaternion yQuaternion = Quaternion.AngleAxis (rotationY, -Vector3.right);
@@ -65,6 +83,22 @@ public class MouseLook : MonoBehaviour {
 			transform.localRotation = originalRotation * yQuaternion;
 		}
 	}
+
+    float Clamp()
+    {
+        if (rotationX < 10 && (minimumX > 350 || maximumX > 350))
+        {
+            Debug.Log("Minx: " + minimumX + " MaxX" + maximumX + " rotX: " + rotationX);
+            return(Mathf.Clamp(rotationX + 360, minimumX, maximumX));
+        }
+        else if (rotationX > 350 && (minimumX < 10 || maximumX < 10))
+        {
+            Debug.Log("Minx: " + minimumX + " MaxX" + maximumX + " rotX: " + rotationX);
+            return (Mathf.Clamp(rotationX - 360, minimumX, maximumX));
+        }
+        else return (rotationX);
+    }
+
 	void Start ()
 	{
 		// Make the rigid body not change rotation
@@ -72,19 +106,4 @@ public class MouseLook : MonoBehaviour {
 			GetComponent<Rigidbody>().freezeRotation = true;
 		originalRotation = transform.localRotation;
 	}
-
-    public void OnContact(Transform cube)
-    {
-        if (GetComponent<Person>().cubeFace == 1)
-        {
-            minimumX = cube.localEulerAngles.y;
-            maximumX = cube.localEulerAngles.y + 180F;
-        }
-
-        else if (GetComponent<Person>().cubeFace == 0)
-        {
-            minimumX = cube.localEulerAngles.y + -180F;
-            maximumX = cube.localEulerAngles.y;
-        }
-    }
 }
