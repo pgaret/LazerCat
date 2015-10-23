@@ -9,15 +9,18 @@ public class Cube : MonoBehaviour {
 
 	Vector3 axisofRotation = new Vector3(0, 0, 0);
 
+    
+
 	// Use this for initialization
 	void Start ()
 	{
-		axisofRotation = transform.GetChild (2).transform.position;
+        axisofRotation = transform.GetChild(2).transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+
 		transform.RotateAround(axisofRotation, Vector3.up, rotateSpeed);
 //        if (rotateSpeed != 0) Debug.Log(transform.position.x.ToString("F4") + "  " + transform.position.y.ToString("F4") + "   " +  transform.position.z.ToString("F4"));
         if (toFollow != null) transform.position = toFollow.position;
@@ -37,4 +40,5 @@ public class Cube : MonoBehaviour {
 			}
 		}
 	}
+
 }

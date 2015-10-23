@@ -18,9 +18,9 @@ public class PlayerMovement : MonoBehaviour {
 	{
         if (GetComponent<Person>().onCube == true)
         {
-            //           Debug.Log("We're rotating");
-            //           Debug.Log(Vector3.Distance(GetComponent<Person>().cube.GetChild(2).transform.position, transform.position));
-//            Debug.Log(GetComponent<Person>().cube.GetChild(2).localPosition);
+//          Debug.Log("We're rotating");
+//            Debug.Log(Vector3.Distance(GetComponent<Person>().cube.GetChild(2).transform.position, transform.position));
+//          Debug.Log(GetComponent<Person>().cube.GetChild(2).localPosition);
             transform.RotateAround(GetComponent<Person>().cube.GetChild(2).transform.position, Vector3.up, GetComponent<Person>().cube.GetComponent<Cube>().rotateSpeed);
             desiredPosition = (transform.position - GetComponent<Person>().cube.GetChild(2).transform.position).normalized * orbitRadius + GetComponent<Person>().cube.GetChild(2).transform.position;
             transform.position = Vector3.MoveTowards(transform.position, desiredPosition, Time.deltaTime * playerSpeed);
@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		else if (Input.GetKey(KeyCode.W))
 		{
- //           Debug.Log("We're moving forwards");
+//          Debug.Log("We're moving forwards");
 			transform.position += transform.GetChild(0).GetComponent<Camera>().transform.forward * playerSpeed * Time.deltaTime;
 		}
        

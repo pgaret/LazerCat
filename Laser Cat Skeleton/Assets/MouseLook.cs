@@ -29,33 +29,18 @@ public class MouseLook : MonoBehaviour {
 	public float maximumX = 360F;
 	public float minimumY = -60F;
 	public float maximumY = 60F;
+
+    public Vector3 origRot;
+
 	float rotationX = 0F;
 	float rotationY = 0F;
 	Quaternion originalRotation;
 	void Update ()
 	{
-        if (GetComponent<Person>().onCube == true)
-        {
-            Transform cube = GetComponent<Person>().cube;
-            if (GetComponent<Person>().cubeFace == 1)
-            {
-                minimumX = cube.localEulerAngles.y%360;
-                maximumX = (cube.localEulerAngles.y + 180F) % 360;
-                if (maximumX < minimumX)
-                {
-                    maximumX += 360;
-                }
-                Debug.Log(minimumX + "   " + maximumX);
-            }
-
-            else if (GetComponent<Person>().cubeFace == 0)
-            {
-                minimumX = cube.localEulerAngles.y + -180F;
-                maximumX = cube.localEulerAngles.y;
-            }
-            Debug.Log(rotationX + "   " + rotationY);
-            rotationX = Clamp();
-        }
+        Debug.Log(transform.rotation);
+        
+        Debug.Log(transform.rotation);
+        //       Debug.Log(transform.rotation.eulerAngles);
         
         if (axes == RotationAxes.MouseXAndY)
 		{
@@ -82,18 +67,51 @@ public class MouseLook : MonoBehaviour {
             Quaternion yQuaternion = Quaternion.AngleAxis (-rotationY, Vector3.right);
 			transform.localRotation = originalRotation * yQuaternion;
 		}
+        if (GetComponent<Person>().onCube == true)
+        {
+            Transform cube = GetComponent<Person>().cube;
+            Vector3 change = cube.transform.rotation.eulerAngles - origRot;
+            Debug.Log("CHANGE: " + change);
+            Debug.Log(change.y);
+            //           transform.Rotate(0, cube.GetComponent<Cube>().rotateSpeed * Time.deltaTime, 0);
+            change = change + transform.rotation.eulerAngles * 360;
+            Debug.Log("BEFORE THE CHANGE SHOULD OCCUR: " + transform.rotation.eulerAngles);
+            transform.rotation = Quaternion.Euler(change);
+            Debug.Log("AFTER THE CHANGE SHOULD OCCUR: " + transform.rotation.eulerAngles);
+            origRot = cube.transform.rotation.eulerAngles;
+
+            if (GetComponent<Person>().cubeFace == 1)
+            {
+                minimumX = cube.localEulerAngles.y % 360;
+                maximumX = (cube.localEulerAngles.y + 180F) % 360;
+                if (maximumX < minimumX)
+                {
+                    maximumX += 360;
+                }
+                //              Debug.Log(minimumX + "   " + maximumX);
+            }
+
+            else if (GetComponent<Person>().cubeFace == 0)
+            {
+                minimumX = cube.localEulerAngles.y + -180F;
+                maximumX = cube.localEulerAngles.y;
+            }
+            //          Debug.Log(rotationX + "   " + rotationY);
+            rotationX = Clamp();
+        }
+        Debug.Log("FINAL CONDITION IS: " + transform.rotation.eulerAngles);
 	}
 
     float Clamp()
     {
         if (rotationX < 10 && (minimumX > 350 || maximumX > 350))
         {
-            Debug.Log("Minx: " + minimumX + " MaxX" + maximumX + " rotX: " + rotationX);
+  //          Debug.Log("Minx: " + minimumX + " MaxX" + maximumX + " rotX: " + rotationX);
             return(Mathf.Clamp(rotationX + 360, minimumX, maximumX));
         }
         else if (rotationX > 350 && (minimumX < 10 || maximumX < 10))
         {
-            Debug.Log("Minx: " + minimumX + " MaxX" + maximumX + " rotX: " + rotationX);
+ //           Debug.Log("Minx: " + minimumX + " MaxX" + maximumX + " rotX: " + rotationX);
             return (Mathf.Clamp(rotationX - 360, minimumX, maximumX));
         }
         else return (rotationX);
